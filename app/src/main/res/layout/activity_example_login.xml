@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/example_login_cl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.modi.mobileanimation.awslogin.ExampleLogin">
+
+    <!--
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="8dp"
+            card_view:elevation="4dp">
+
+            <ImageView
+                android:id="@+id/aws_logo_iv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_aws_logo_smile" />
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+    -->
+
+</android.support.constraint.ConstraintLayout>
