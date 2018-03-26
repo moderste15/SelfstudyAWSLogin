@@ -1,22 +1,21 @@
 package org.modi.mobileanimation.awslogin;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Build;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
+import com.amazonaws.mobile.auth.ui.AuthUIConfiguration;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExampleLogin extends AppCompatActivity {
 
@@ -30,9 +29,34 @@ public class ExampleLogin extends AppCompatActivity {
         // Everything regarding layout belongs here
         setupLayout();
 
-        // Listeners
+        // Listeners (SignUI is set here)
         setupListeners();
 
+        // Amazonaws
+        AWSUtility.doStart(this);
+
+        exampleAnalytics();
+
+
+    }
+
+
+    /**
+     * Called from on create to create example event and submit it to pinpoint analytics
+     */
+    private void exampleAnalytics() {
+        final String en = "ExampleEvent";
+        Map<String, String> a = new HashMap<String, String>();
+        a.put("FirstDemoAttribute", "My Value is a String");
+        a.put("SecondDemoAttribute", "42");
+        Map<String, Double> m = new HashMap<String, Double>();
+        m.put("Value1", 42.00);
+        m.put("Value2", 3.14157);
+
+
+        AWSUtility.doBeginAnalytics(this)
+                .logEvent(en, a, m)
+                .submitAnalytics();
     }
 
 
@@ -40,15 +64,27 @@ public class ExampleLogin extends AppCompatActivity {
      * Call from onCreate to setup relevant listeners
      */
     private void setupListeners() {
-
         constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ExampleLogin.this, ExampleSuccess.class);
-                startActivity(i);
+                login();
             }
         });
 
+    }
+
+    /**
+     * Called from listern makes SignUi screen
+     */
+    private void login() {
+        final AuthUIConfiguration config = new AuthUIConfiguration.Builder()
+                .userPools(true)
+                .logoResId(R.drawable.ic_aws_logo_smile_reversed)
+                .backgroundColor(Color.parseColor("#222e3c"))
+                .isBackgroundColorFullScreen(true)
+                .canCancel(true)
+                .build();
+        AWSUtility.doLoginActivityUI(this, config);
     }
 
 
