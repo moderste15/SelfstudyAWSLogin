@@ -18,12 +18,11 @@
         <activity android:name=".ExampleLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ExampleSuccess" />
-        <activity android:name=".inner.AWSAuthenticationActivity"></activity>
+
     </application>
 
 </manifest>

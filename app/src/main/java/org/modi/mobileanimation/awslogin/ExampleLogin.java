@@ -14,6 +14,8 @@ import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import org.modi.mobileanimation.awslogin.analytics.AWSEvent;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,16 +37,20 @@ public class ExampleLogin extends AppCompatActivity {
         // Amazonaws
         AWSUtility.doStart(this);
 
-        exampleAnalytics();
+        exampleAnalytics1();
+        exampleAnalytics2();
 
 
     }
 
 
+
+
+
     /**
      * Called from on create to create example event and submit it to pinpoint analytics
      */
-    private void exampleAnalytics() {
+    private void exampleAnalytics1() {
         final String en = "ExampleEvent";
         Map<String, String> a = new HashMap<String, String>();
         a.put("FirstDemoAttribute", "My Value is a String");
@@ -56,7 +62,21 @@ public class ExampleLogin extends AppCompatActivity {
 
         AWSUtility.doBeginAnalytics(this)
                 .logEvent(en, a, m)
-                .submitAnalytics();
+                .submit();
+    }
+
+    /**
+     * Better version of exampleAnalytics1
+     */
+    private void exampleAnalytics2() {
+
+        AWSUtility.doBeginAnalytics(this)
+                .logEvent(
+                        AWSEvent.initialise()
+                        .setEventName("BetterEvent")
+                        .addAttributes("Very", "Easy")
+                        .addMetrics("Grade", 1.0))
+                .submit();
     }
 
 
@@ -84,7 +104,7 @@ public class ExampleLogin extends AppCompatActivity {
                 .isBackgroundColorFullScreen(true)
                 .canCancel(true)
                 .build();
-        AWSUtility.doLoginActivityUI(this, config);
+        AWSUtility.doLoginActivityUI(this, config, ExampleSuccess.class);
     }
 
 
@@ -106,6 +126,5 @@ public class ExampleLogin extends AppCompatActivity {
                         resource.start();
                     }
                 });
-
     }
 }
