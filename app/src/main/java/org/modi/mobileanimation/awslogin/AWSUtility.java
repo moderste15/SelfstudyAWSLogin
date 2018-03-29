@@ -1,6 +1,7 @@
 package org.modi.mobileanimation.awslogin;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 
 import org.modi.mobileanimation.awslogin.analytics.AWSAnalytics;
 import org.modi.mobileanimation.awslogin.analytics.AWSAnalyticsDo;
+import org.modi.mobileanimation.awslogin.login.AWSAuthStartUpHandler;
 import org.modi.mobileanimation.awslogin.login.AWSAuthentification;
 
 
@@ -35,7 +37,7 @@ public class AWSUtility {
      */
     public static AWSUtility doStart(Activity mainActivity) {
         info(STARTING_AWS);
-        AWSMobileClient.getInstance().initialize(mainActivity).execute();
+        AWSMobileClient.getInstance().initialize(mainActivity, new AWSAuthStartUpHandler(mainActivity)).execute();
         return getInstance();
     }
     /**
@@ -86,7 +88,7 @@ public class AWSUtility {
                                                final AuthUIConfiguration config,
                                                final Class<? extends AppCompatActivity> next) {
         info(START_LOGIN);
-        AWSAuthentification.getInstance().loginActivityUI(activity, config, next);
+        AWSAuthentification.loginActivityUI(activity, config, next);
         return getInstance();
     }
     /**
@@ -107,9 +109,6 @@ public class AWSUtility {
      */
     private static void info(String msg) {
         Log.i(LOG_TAG, msg);
-    }
-    private static void error(String msg) {
-        Log.e(LOG_TAG, msg);
     }
 
     /*
