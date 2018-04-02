@@ -1,6 +1,6 @@
 package org.modi.mobileanimation.awslogin;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -8,13 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.amazonaws.mobile.auth.ui.AuthUIConfiguration;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import org.modi.mobileanimation.awslogin.analytics.AWSEvent;
+import org.modi.mobileanimation.awslogin.login.AWSAuthentification;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,6 +97,11 @@ public class ExampleLogin extends AppCompatActivity {
      * Called from listern makes SignUi screen
      */
     private void login() {
+
+
+        AWSUtility.doLoginCustomUI(this);
+
+        /* Usual Log in screen
         final AuthUIConfiguration config = new AuthUIConfiguration.Builder()
                 .userPools(true)
                 .logoResId(R.drawable.ic_aws_logo_smile_reversed)
@@ -105,6 +110,7 @@ public class ExampleLogin extends AppCompatActivity {
                 .canCancel(true)
                 .build();
         AWSUtility.doLoginActivityUI(this, config, ExampleSuccess.class);
+        */
     }
 
 

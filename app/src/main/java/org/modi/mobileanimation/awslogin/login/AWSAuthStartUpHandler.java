@@ -45,8 +45,7 @@ public class AWSAuthStartUpHandler implements AWSStartupHandler {
         manager.resumeSession(activity, new StartupAuthResultHandler() {
             @Override
             public void onComplete(StartupAuthResult authResults) {
-                AWSAuthentification.awsSetLogin(authResults.isUserSignedIn());
-                Log.i(LOG_TAG, AWSAuthentification.isUserLogedIn() ? "Signed in" : "Not signed in");
+
             }
         });
     }

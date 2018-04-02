@@ -21,6 +21,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
@@ -71,6 +72,7 @@ public class AWSAuthentification {
     private final AuthenticationHandler authenticationHandler = new AuthenticationHandler() {
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
+
             // Get details of the logged user (in this case, only the e-mail)
             cognitoUser.getDetailsInBackground(new GetDetailsHandler() {
                 @Override
@@ -97,7 +99,10 @@ public class AWSAuthentification {
 
         @Override
         public void getAuthenticationDetails(AuthenticationContinuation authenticationContinuation, String userId) {
-
+            final AuthenticationDetails authenticationDetails = new AuthenticationDetails(userName, userPassword, null);
+            authenticationContinuation.setAuthenticationDetails(authenticationDetails);
+            authenticationContinuation.continueTask();
+            userPassword = "";
         }
 
         @Override
@@ -179,6 +184,7 @@ public class AWSAuthentification {
      * @param userPassword
      */
     public void signInUser(String userNameOrEmail, String userPassword) {
+
         this.userName = userNameOrEmail;
         this.userPassword = userPassword;
 
@@ -234,22 +240,19 @@ public class AWSAuthentification {
     }
 
 
-    /**
-     * Sets login state
-     * @param b
-     */
-    public static void awsSetLogin(boolean b) {
-        info("Logged in " + b);
-        loggedIn = b;
-    }
 
     /**
      * Gets login state
      * @return
      */
-    public static boolean isUserLogedIn() {
-
-        return loggedIn;
+    public boolean isUserLogedIn() {
+        String name = getSavedUserName(context);
+        if (name == null || name.isEmpty())
+            return false;
+        cognitoUser = cognitoUserPool.getUser(userName);
+        if (cognitoUser == null || cognitoUser.getUserId() == null || cognitoUser.getUserId().isEmpty())
+            return false;
+        return true;
     }
 
 

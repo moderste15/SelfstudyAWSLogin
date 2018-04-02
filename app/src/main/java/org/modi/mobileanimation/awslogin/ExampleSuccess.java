@@ -5,11 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+
+import org.modi.mobileanimation.awslogin.login.AWSAuthentification;
 
 public class ExampleSuccess extends AppCompatActivity {
 
@@ -48,5 +51,14 @@ public class ExampleSuccess extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    /*
+     * Resume is just used to log out the user name
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("AWSUserName", AWSAuthentification.getSavedUserName(ExampleSuccess.this));
     }
 }

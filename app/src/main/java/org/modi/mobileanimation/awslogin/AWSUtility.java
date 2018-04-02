@@ -2,6 +2,7 @@ package org.modi.mobileanimation.awslogin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -102,6 +103,24 @@ public class AWSUtility {
     }
 
 
+    /**
+     * Starts a CustomUI - static  call
+     * @return
+     */
+    public static AWSUtility doLoginCustomUI(Context context) {
+        // TODO just for test not real use
+        Intent intent = new Intent(context, ExampleLoginScreenActivity.class);
+        context.startActivity(intent);
+
+        return getInstance();
+    }
+    /**
+     * Starts a CustomUI -instance call
+     * @return
+     */
+    public AWSUtility loginCustomUI(Context context) {
+        return doLoginCustomUI(context);
+    }
 
 
     /*
