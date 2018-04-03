@@ -117,6 +117,7 @@ public class AWSAuthentification {
 
         @Override
         public void onFailure(Exception exception) {
+            // TODO user
             error(AUTH_HANDLER);
             exception.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package org.modi.mobileanimation.awslogin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.amazonaws.mobile.auth.ui.AuthUIConfiguration;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -28,14 +30,16 @@ public class ExampleLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example_login);
 
+        // Amazonaws
+        AWSUtility.doStart(this);
+
         // Everything regarding layout belongs here
         setupLayout();
 
         // Listeners (SignUI is set here)
         setupListeners();
 
-        // Amazonaws
-        AWSUtility.doStart(this);
+
 
         exampleAnalytics1();
         exampleAnalytics2();
@@ -77,6 +81,13 @@ public class ExampleLogin extends AppCompatActivity {
                         .addAttributes("Very", "Easy")
                         .addMetrics("Grade", 1.0))
                 .submit();
+
+        AWSUtility.doBeginAnalytics(this)
+                .logEvent(
+                        AWSEvent.initialise()
+                        .setEventName("Buam Graz Festl")
+                        .addAttributes("Antwort", "1")
+                ).submit();
     }
 
 
@@ -104,13 +115,14 @@ public class ExampleLogin extends AppCompatActivity {
         /* Usual Log in screen
         final AuthUIConfiguration config = new AuthUIConfiguration.Builder()
                 .userPools(true)
-                .logoResId(R.drawable.ic_aws_logo_smile_reversed)
-                .backgroundColor(Color.parseColor("#222e3c"))
+                .logoResId(R.drawable.logo)
+                .backgroundColor(Color.parseColor("#000000"))
                 .isBackgroundColorFullScreen(true)
                 .canCancel(true)
                 .build();
         AWSUtility.doLoginActivityUI(this, config, ExampleSuccess.class);
         */
+
     }
 
 

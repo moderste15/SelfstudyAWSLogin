@@ -67,6 +67,7 @@ public class ExampleLoginScreenActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onSignInSuccess() {
+        ExampleLoginScreenActivity.this.finish();
         ExampleLoginScreenActivity.this.startActivity(new Intent(ExampleLoginScreenActivity.this, ExampleSuccess.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
@@ -85,7 +86,7 @@ public class ExampleLoginScreenActivity extends AppCompatActivity implements Vie
         awsLoginModel.registerUser(userName.getText().toString(),
                 email.getText().toString(),
                 password.getText().toString(),
-                AWSUserAttributes.createBuilder());
+                AWSUserAttributes.createBuilder().add("custom:test", "Hallo Kerstin"));
     }
 
     private void confirmAction() {
