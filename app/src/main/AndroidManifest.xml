@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ExampleSuccess" />
-        <activity android:name=".ExampleLoginScreenActivity"></activity>
+        <activity android:name=".ExampleLoginScreenActivity" />
+        <activity android:name=".AWSLoginCookieCutterActivity"></activity>
     </application>
 
 </manifest>
