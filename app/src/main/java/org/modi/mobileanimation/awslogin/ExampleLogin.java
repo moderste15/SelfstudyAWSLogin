@@ -109,8 +109,9 @@ public class ExampleLogin extends AppCompatActivity {
      */
     private void login() {
 
+        startActivity(new Intent(this, AWSXMasTreeLogin.class));
 
-        AWSUtility.doLoginCustomUI(this);
+        //AWSUtility.doLoginCustomUI(this);
 
         /* Usual Log in screen
         final AuthUIConfiguration config = new AuthUIConfiguration.Builder()
